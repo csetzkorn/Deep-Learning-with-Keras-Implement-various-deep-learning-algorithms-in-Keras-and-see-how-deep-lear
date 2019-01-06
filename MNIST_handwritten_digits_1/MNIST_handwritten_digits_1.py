@@ -10,13 +10,14 @@ import tensorflow
 np.random.seed(42) # for reproducibility
 
 # network and training
-NB_EPOCH = 200
+NB_EPOCH = 250
 BATCH_SIZE = 128
 VERBOSE = 1
 NB_CLASSES = 10 # number of outputs = number of digits
-OPTIMIZER = SGD() # SGD optimizer, explained later in this chapter
+OPTIMIZER = SGD() # stochastic gradient descent - RMSprop, Adam
 N_HIDDEN = 128
 VALIDATION_SPLIT=0.2 # how much TRAIN is reserved for VALIDATION
+DROPOUT = 0.3
 
 # data: shuffled and split between train and test sets
 #
@@ -41,7 +42,13 @@ Y_test = np_utils.to_categorical(y_test, NB_CLASSES)
 # 10 outputs
 # final stage is softmax
 model = Sequential()
-model.add(Dense(NB_CLASSES, input_shape=(RESHAPED,)))
+model.add(Dense(N_HIDDEN, input_shape=(RESHAPED,)))
+model.add(Activation('relu'))
+model.add(Dropout(DROPOUT))
+model.add(Dense(N_HIDDEN))
+model.add(Activation('relu'))
+model.add(Dropout(DROPOUT))
+model.add(Dense(NB_CLASSES))
 model.add(Activation('softmax'))
 model.summary()
 

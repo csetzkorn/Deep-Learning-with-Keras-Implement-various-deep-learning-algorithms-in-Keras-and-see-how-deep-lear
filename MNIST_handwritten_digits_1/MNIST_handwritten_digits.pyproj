@@ -23,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="LeNet _code_in_Keras.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MNIST_handwritten_digits_1.py" />
   </ItemGroup>
   <ItemGroup>
